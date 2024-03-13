@@ -26,6 +26,10 @@ export function getStaticFileUrl(relativePath) {
   return `${BASE_URL}/${normalizedPath}`
 }
 
+export const fetchAllCategories = async () => {
+  return instance.get('/categories')
+}
+
 
 
 
