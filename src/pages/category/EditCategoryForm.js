@@ -3,24 +3,23 @@ const { Grid, Typography, TextField, Button, MenuItem } = require('@mui/material
 import { useState, useEffect } from 'react'
 import { fetchAllCategories } from 'src/utility/api'
 
-const AddCustomerForm = ({ onSubmit, onCancel }) => {
+const EditCategoryForm = ({ onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
-    mobile: '',
-    email:"",
-    pin:'',
-    aadhar:''
+    parent_category_id: null,
+    description:''
   }
 
   const [formData, setFormData] = useState(initialFormData)
-  const [customers, setCustomers] = useState([])
+  const [categories, setCategories] = useState([])
 
-  const getAllCustomers = async (formData) => {
-    console.log(formData)
+  const getAllCategories = async () => {
+    const response = await fetchAllCategories()
+    setCategories(response.data)
   }
 
   useEffect(() => {
-    getAllCustomers()
+    getAllCategories()
   }, [])
 
   const handleInputChange = (field, value) => {
@@ -34,14 +33,14 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
     e.preventDefault()
     onSubmit(formData)
     setFormData(initialFormData)
-    getAllCustomers()
+    getAllCategories()
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ marginBottom: '20px' }}>
-          <Typography variant='h5'>Add Customer</Typography>
+          <Typography variant='h5'>Edit Category</Typography>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -56,35 +55,33 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label='Mobile'
-            type="number"
+            label='Description'
             fullWidth
-            value={formData.mobile}
-            onChange={e => handleInputChange('mobile', e.target.value)}
+            value={formData.description}
+            onChange={e => handleInputChange('description', e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label='Email'
+            label='Parent Category'
+            select
             fullWidth
-            value={formData.mobile}
-            onChange={e => handleInputChange('email', e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label='Aadhar'
-            type="number"
-            fullWidth
-            value={formData.aadhar}
-            onChange={e => handleInputChange('aadhar', e.target.value)}
-          />
+            name='parent_category_id'
+            value={formData.parent_category_id}
+            onChange={e => handleInputChange('parent_category_id', e.target.value)}
+          >
+            {categories.map(category => (
+              <MenuItem key={category._id} value={category._id}>
+                {category.name}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
       </Grid>
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>
         <Grid item>
           <Button type='submit' variant='contained' color='primary'>
-            Add
+            update
           </Button>
         </Grid>
         <Grid item>
@@ -97,4 +94,4 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
   )
 }
 
-export default AddCustomerForm
+export default EditCategoryForm

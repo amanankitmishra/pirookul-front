@@ -5,10 +5,14 @@ import Sidebar from 'src/@core/components/sidebar'
 import { fetchAllCategories, addCategory } from 'src/utility/api'
 import AddCategoryForm from './AddCategoryForm'
 import toast from 'react-hot-toast'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditCategoryForm from './EditCategoryForm'
 
 const Category = () => {
   const [categories, setCategories] = useState([])
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [editSidebarOpen, setEditSidebarOpen] = useState(false)
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -25,15 +29,43 @@ const Category = () => {
     setSidebarOpen(false)
   }
 
+  const handleEdit = (id) => {
+    setEditSidebarOpen(!editSidebarOpen)
+  }
+
   const handleCancel = () => {
     setSidebarOpen(false)
+    setEditSidebarOpen(false)
   }
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'description', headerName: 'Description', flex: 1 },
-    { field: 'actions', headerName: 'Actions', flex: 1 }
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      flex: 1,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            transition: 'transform 0.5s',
+            color: 'red'
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.2)')}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+        >
+          <EditIcon onClick={() => handleEdit(params.row.id)} />
+          <DeleteIcon />
+        </div>
+      ),
+      editable: false,
+      sortable: false,
+      filterable: false,
+    }
   ]
 
   const getAllCategories = async () => {
@@ -88,8 +120,14 @@ const Category = () => {
       <Sidebar show={sidebarOpen} sx={{ padding: 5 }}>
         <AddCategoryForm onSubmit={handleAddCategory} onCancel={handleCancel} />
       </Sidebar>
+      <Sidebar show={editSidebarOpen} sx={{ padding: 5 }}>
+        <EditCategoryForm onCancel={handleCancel} />
+      </Sidebar>
     </Grid>
   )
 }
 
 export default Category
+
+
+
