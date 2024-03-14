@@ -9,6 +9,16 @@ const navigation = () => {
       title: 'Categories',
       path: '/category',
       icon: 'tabler:category'
+    },
+    {
+      title: 'Product',
+      path: '/product',
+      icon: 'tabler:category'
+    },
+    {
+      title: 'Customer',
+      path: '/customer',
+      icon: 'tabler:category'
     }
   ]
 }
