@@ -1,7 +1,10 @@
 import { Card, CardContent, CardHeader, Grid, Typography, Button } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useState, useEffect } from 'react'
-import { fetchAllCategories } from 'src/utility/api'
+import Sidebar from 'src/@core/components/sidebar'
+import { fetchAllCategories, addCategory } from 'src/utility/api'
+import AddCategoryForm from './AddCategoryForm'
+import toast from 'react-hot-toast'
 
 const Category = () => {
   const [categories, setCategories] = useState([])
@@ -11,18 +14,37 @@ const Category = () => {
     setSidebarOpen(!sidebarOpen)
   }
 
+  const handleAddCategory = async formData => {
+    try {
+      const response = await addCategory(formData)
+      toast.success('Category added successfully', { duration: 3000 })
+      await getAllCategories()
+    } catch {
+      toast.error('Error in adding category', { duration: 3000 })
+    }
+    setSidebarOpen(false)
+  }
+
+  const handleCancel = () => {
+    setSidebarOpen(false)
+  }
+
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 1 },
+    { field: 'description', headerName: 'Description', flex: 1 },
     { field: 'actions', headerName: 'Actions', flex: 1 }
   ]
 
   const getAllCategories = async () => {
     const response = await fetchAllCategories()
 
-    // console.log(response.data)
+    const ccc = response.data.map(row => ({
+      ...row,
+      id: row._id
+    }))
 
-    setCategories(response.data)
+    setCategories(ccc)
   }
 
   useEffect(() => {
@@ -47,7 +69,7 @@ const Category = () => {
                 initialState={{
                   columns: {
                     columnVisibilityModel: {
-                      id: false,
+                      id: false
                     }
                   },
                   pagination: {
@@ -62,6 +84,10 @@ const Category = () => {
           </CardContent>
         </Card>
       </Grid>
+
+      <Sidebar show={sidebarOpen} sx={{ padding: 5 }}>
+        <AddCategoryForm onSubmit={handleAddCategory} onCancel={handleCancel} />
+      </Sidebar>
     </Grid>
   )
 }

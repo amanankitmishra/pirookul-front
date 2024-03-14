@@ -30,6 +30,10 @@ export const fetchAllCategories = async () => {
   return instance.get('/categories')
 }
 
+export const addCategory = async (formData) => {
+  return instance.post('/categories', formData)
+}
+
 
 
 
