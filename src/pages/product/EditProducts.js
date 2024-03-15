@@ -1,9 +1,9 @@
 const { Grid, Typography, TextField, Button, MenuItem } = require('@mui/material')
 
 import { useState, useEffect } from 'react'
-import { fetchAllCategories, fetchAllCustomers, fetchAllProducts } from 'src/utility/api'
+import { fetchAllCategories, fetchAllCustomers} from 'src/utility/api'
 
-const AddProductForm = ({ onSubmit, onCancel }) => {
+const EditProductForm = ({data, onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
     price:null,
@@ -18,19 +18,34 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
   const [categories, setCategories] = useState([])
 
   const getAllCustomers = async () => {
-      const response = await fetchAllCustomers()
-      setCustomers(response.data)
-  }
-  const getAllCategories = async () => {
-      const response = await fetchAllCategories()
-      setCategories(response.data)
-  }
+    const response = await fetchAllCustomers()
+    setCustomers(response.data)
+}
+const getAllCategories = async () => {
+    const response = await fetchAllCategories()
+    setCategories(response.data)
+}
 
+
+useEffect(() => {
+  getAllCustomers()
+  getAllCategories()
+}, [])
 
   useEffect(() => {
-    getAllCustomers()
-    getAllCategories()
-  }, [])
+    if(data){
+        setFormData({
+            name: data.name || "",
+            price: data.price || "",
+            customer_id: data.customer_id || null,
+            category_id: data.category_id || null,
+            description: data.description || "",
+            condition: data.condition || "",
+        })
+    }
+  }, [data])
+
+  console.log("formData", formData)
 
   const handleInputChange = (field, value) => {
     setFormData(prevData => ({
@@ -41,17 +56,14 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    onSubmit(formData)
-    setFormData(initialFormData)
-    getAllCustomers()
-    getAllCategories()
+    onSubmit(data._id, formData)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ marginBottom: '20px' }}>
-          <Typography variant='h5'>Add Product</Typography>
+          <Typography variant='h5'>Edit product</Typography>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -68,7 +80,7 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
           <TextField
             label='Price'
             fullWidth
-            value={formData.number}
+            value={formData.price}
             onChange={e => handleInputChange('price', e.target.value)}
             required
           />
@@ -81,7 +93,7 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
             value={formData.customer_id}
             onChange={e => handleInputChange('customer_id', e.target.value)}
           >
-            {
+           {
               customers.map(customer => (
                 <MenuItem key={customer._id} value={customer._id}>
                 {customer.name}
@@ -95,10 +107,11 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
             label='Category'
             select
             fullWidth
+            name='category_id'
             value={formData.category_id}
             onChange={e => handleInputChange('category_id', e.target.value)}
           >
-             {categories.map(category => (
+            {categories.map(category => (
               <MenuItem key={category._id} value={category._id}>
                 {category.name}
               </MenuItem>
@@ -130,7 +143,7 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>
         <Grid item>
           <Button type='submit' variant='contained' color='primary'>
-            Add
+            Update
           </Button>
         </Grid>
         <Grid item>
@@ -143,4 +156,4 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
   )
 }
 
-export default AddProductForm
+export default EditProductForm

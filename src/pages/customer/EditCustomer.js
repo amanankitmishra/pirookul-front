@@ -1,17 +1,27 @@
 const { Grid, Typography, TextField, Button, MenuItem } = require('@mui/material')
 
 import { useState, useEffect } from 'react'
-import {fetchAllCustomers } from 'src/utility/api'
+import {  fetchAllCustomers } from 'src/utility/api'
 
-const AddCustomerForm = ({ onSubmit, onCancel }) => {
-  const initialFormData = {
+const EditCustomerForm = ({data, onSubmit, onCancel }) => {
+  const [formData, setFormData] = useState({
     name: '',
-    mobile: "",
+    mobile: null,
     email:"",
     aadharNumber:""
-  }
+  })
+  const [customers, setCustomers] = useState([])
 
-  const [formData, setFormData] = useState(initialFormData)
+  useEffect(() => {
+    if(data){
+        setFormData({
+            name: data.name || "",
+            mobile: data.mobile || "",
+            email: data.email || "",
+            aadharNumber: data.aadharNumber || ""
+        })
+    }
+  }, [data])
 
   const handleInputChange = (field, value) => {
     setFormData(prevData => ({
@@ -20,13 +30,9 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
     }))
   }
 
-  console.log(initialFormData)
-
   const handleSubmit = e => {
     e.preventDefault()
-    onSubmit(formData)
-    setFormData(initialFormData)
-    getAllCustomers()
+    onSubmit(data._id, formData)
   }
 
   return (
@@ -88,4 +94,9 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
   )
 }
 
-export default AddCustomerForm
+EditCustomerForm.acl = {
+    action: 'read',
+    subject: 'enquiry'
+  }
+
+export default EditCustomerForm

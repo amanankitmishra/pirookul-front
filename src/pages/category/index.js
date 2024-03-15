@@ -136,7 +136,7 @@ const Category = () => {
 
     // Close the edit modal
     setEditSidebarOpen(false)
-    getAllCategories()
+    await getAllCategories()
   }
 
   useEffect(() => {
