@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Sidebar from 'src/@core/components/sidebar'
 import AddCustomerForm from './AddCustomerForm'
 
+
 const Customer = () => {
     const [customers, setCustomers] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)

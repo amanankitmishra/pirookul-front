@@ -13,12 +13,12 @@ const navigation = () => {
     {
       title: 'Product',
       path: '/product',
-      icon: 'tabler:category'
+      icon: 'tabler:shopping-cart-check'
     },
     {
       title: 'Customer',
       path: '/customer',
-      icon: 'tabler:category'
+      icon: 'tabler:users'
     }
   ]
 }

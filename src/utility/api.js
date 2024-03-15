@@ -34,6 +34,21 @@ export const addCategory = async (formData) => {
   return instance.post('/categories', formData)
 }
 
+export const editCategory = async (id,formData) => {
+  return instance.patch(`/categories/${id}`, formData)
+}
+
+export const deleteCategory = async (id) => {
+  return instance.delete(`/categories/${id}`)
+}
+
+
+// Products
+
+export const fetchProducts = async () => {
+  return instance.get('/products');
+}
+
 
 
 
