@@ -6,9 +6,9 @@ import { fetchAllCategories, fetchAllCustomers, fetchAllProducts } from 'src/uti
 const AddProductForm = ({ onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
-    price:null,
-    customer_id: null,
-    category_id: null,
+    price:"",
+    customer_id:"",
+    category_id:"",
     description:'',
     condition: "",
   }

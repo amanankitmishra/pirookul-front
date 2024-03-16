@@ -6,9 +6,9 @@ import { fetchAllCategories, fetchAllCustomers} from 'src/utility/api'
 const EditProductForm = ({data, onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
-    price:null,
-    customer_id: null,
-    category_id: null,
+    price:"",
+    customer_id: "",
+    category_id: "",
     description:'',
     condition: "",
   }
@@ -37,15 +37,13 @@ useEffect(() => {
         setFormData({
             name: data.name || "",
             price: data.price || "",
-            customer_id: data.customer_id || null,
-            category_id: data.category_id || null,
+            customer_id: data.customer_id || "",
+            category_id: data.category_id || "",
             description: data.description || "",
             condition: data.condition || "",
         })
     }
   }, [data])
-
-  console.log("formData", formData)
 
   const handleInputChange = (field, value) => {
     setFormData(prevData => ({

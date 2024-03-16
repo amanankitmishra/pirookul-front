@@ -11,7 +11,7 @@ import { fetchAllCategories } from 'src/utility/api'
 const EditCategoryForm = ({ data, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
     name: '',
-    parent_category_id: null,
+    parent_category_id: "",
     description: ''
   })
 
@@ -28,7 +28,7 @@ const EditCategoryForm = ({ data, onSubmit, onCancel }) => {
     if (data) {
       setFormData({
         name: data.name || '',
-        parent_category_id: data.parent_category_id || null,
+        parent_category_id: data.parent_category_id || "",
         description: data.description || ''
       })
     }
@@ -49,7 +49,7 @@ const EditCategoryForm = ({ data, onSubmit, onCancel }) => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ marginBottom: '20px' }}>
-          <Typography variant='h5'>Add Category</Typography>
+          <Typography variant='h5'>Edit Category</Typography>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -90,7 +90,7 @@ const EditCategoryForm = ({ data, onSubmit, onCancel }) => {
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>
         <Grid item>
           <Button type='submit' variant='contained' color='primary'>
-            Add
+            update
           </Button>
         </Grid>
         <Grid item>

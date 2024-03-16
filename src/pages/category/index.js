@@ -193,4 +193,9 @@ const Category = () => {
   )
 }
 
+Category.acl = {
+  action: 'read',
+  subject: 'category'
+}
+
 export default Category

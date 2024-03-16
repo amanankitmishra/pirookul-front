@@ -1,16 +1,14 @@
 const { Grid, Typography, TextField, Button, MenuItem } = require('@mui/material')
 
 import { useState, useEffect } from 'react'
-import {  fetchAllCustomers } from 'src/utility/api'
 
 const EditCustomerForm = ({data, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
     name: '',
-    mobile: null,
+    mobile:"",
     email:"",
     aadharNumber:""
   })
-  const [customers, setCustomers] = useState([])
 
   useEffect(() => {
     if(data){
@@ -39,7 +37,7 @@ const EditCustomerForm = ({data, onSubmit, onCancel }) => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ marginBottom: '20px' }}>
-          <Typography variant='h5'>Add Customer</Typography>
+          <Typography variant='h5'>Edit Customer</Typography>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -81,7 +79,7 @@ const EditCustomerForm = ({data, onSubmit, onCancel }) => {
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>
         <Grid item>
           <Button type='submit' variant='contained' color='primary'>
-            Add
+            update
           </Button>
         </Grid>
         <Grid item>

@@ -6,7 +6,7 @@ import { fetchAllCategories } from 'src/utility/api'
 const AddCategoryForm = ({ onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
-    parent_category_id: null,
+    parent_category_id: "",
     description:''
   }
 

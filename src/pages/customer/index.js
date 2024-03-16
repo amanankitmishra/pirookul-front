@@ -195,4 +195,9 @@ const Customer = () => {
   )
 }
 
+Customer.acl = {
+  action: 'read',
+  subject: 'customer'
+}
+
 export default Customer

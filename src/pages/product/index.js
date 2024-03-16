@@ -22,7 +22,6 @@ const Product = () => {
   }
 
   const handleAddProducts = async (formData) => {
-    console.log(formData)
     //Make api request
     try {
       const response = await addProduct(formData)
@@ -53,7 +52,6 @@ const Product = () => {
 
   const handleConfirmationDialogConfirm = async () => {
     try {
-      // console.log(deleteEnquiryId)
       await deleteProduct(deleteProductId)
       toast.success('Product deleted successfully', { duration: 3000 })
       await getAllProducts()
@@ -74,7 +72,7 @@ const Product = () => {
     { field: "category_id", headerName: "Category", flex: 1 },
     { field: "condition", headerName: "Condition", flex: 1 },
     { field: "image", headerName: "Image", flex: 1 },
-    { fled: "gallery", headerName: "Gallery", flex: 1 },
+    { field: "gallery", headerName: "Gallery", flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -196,6 +194,11 @@ const Product = () => {
       />
     </Grid>
   )
+}
+
+Product.acl = {
+  action: 'read',
+  subject: 'product'
 }
 
 export default Product
