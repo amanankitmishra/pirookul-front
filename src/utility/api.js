@@ -79,6 +79,12 @@ export const deleteProduct = async (id) => {
   return instance.delete(`/products/${id}`)
 }
 
+// CSP
+
+export const fetchAllCsp = async() => {
+  return instance.get('/csp')
+}
+
 
 
 

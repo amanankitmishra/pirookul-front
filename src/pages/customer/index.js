@@ -26,7 +26,6 @@ const Customer = () => {
       const response = await addCustomer(formData)
       toast.success('Customer added Succesfully', { duration: 3000 })
       const customer = await getAllCustomers()
-      console.log("customer", customer)
     } catch (error) {
       toast.error('Error in adding Customer', { duration: 3000 })
     }
@@ -70,7 +69,6 @@ const Customer = () => {
     { field: 'mobile', headerName: 'Mobile', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'aadharNumber', headerName: 'Aadhar', flex: 1 },
-    { field: 'Photo', headerName: 'Photo', flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',

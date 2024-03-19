@@ -71,8 +71,6 @@ const Product = () => {
     { field: "description", headerName: "Description", flex: 1 },
     { field: "category_id", headerName: "Category", flex: 1 },
     { field: "condition", headerName: "Condition", flex: 1 },
-    { field: "image", headerName: "Image", flex: 1 },
-    { field: "gallery", headerName: "Gallery", flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',

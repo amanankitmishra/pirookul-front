@@ -6,10 +6,10 @@ import { fetchAllCategories, fetchAllCustomers, fetchAllProducts } from 'src/uti
 const AddProductForm = ({ onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
-    price:"",
-    customer_id:"",
-    category_id:"",
-    description:'',
+    price: "",
+    customer_id: "",
+    category_id: "",
+    description: '',
     condition: "",
   }
 
@@ -18,12 +18,12 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
   const [categories, setCategories] = useState([])
 
   const getAllCustomers = async () => {
-      const response = await fetchAllCustomers()
-      setCustomers(response.data)
+    const response = await fetchAllCustomers()
+    setCustomers(response.data)
   }
   const getAllCategories = async () => {
-      const response = await fetchAllCategories()
-      setCategories(response.data)
+    const response = await fetchAllCategories()
+    setCategories(response.data)
   }
 
 
@@ -84,11 +84,11 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
             {
               customers.map(customer => (
                 <MenuItem key={customer._id} value={customer._id}>
-                {customer.name}
+                  {customer.name}
                 </MenuItem>
               ))
             }
-            </TextField>
+          </TextField>
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -98,7 +98,7 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
             value={formData.category_id}
             onChange={e => handleInputChange('category_id', e.target.value)}
           >
-             {categories.map(category => (
+            {categories.map(category => (
               <MenuItem key={category._id} value={category._id}>
                 {category.name}
               </MenuItem>
@@ -124,7 +124,7 @@ const AddProductForm = ({ onSubmit, onCancel }) => {
             <MenuItem value={"new"}>new</MenuItem>
             <MenuItem value={"used"}>used</MenuItem>
             <MenuItem value={"damaged"}>damaged</MenuItem>
-        </TextField>
+          </TextField>
         </Grid>
       </Grid>
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>

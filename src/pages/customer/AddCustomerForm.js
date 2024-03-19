@@ -1,14 +1,15 @@
 const { Grid, Typography, TextField, Button, MenuItem } = require('@mui/material')
 
 import { useState, useEffect } from 'react'
-import {fetchAllCustomers } from 'src/utility/api'
+import { fetchAllCustomers } from 'src/utility/api'
 
 const AddCustomerForm = ({ onSubmit, onCancel }) => {
   const initialFormData = {
     name: '',
     mobile: "",
-    email:"",
-    aadharNumber:""
+    email: "",
+    aadharNumber: "",
+    selling_customer: '',
   }
 
   const [formData, setFormData] = useState(initialFormData)
@@ -24,7 +25,6 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
     e.preventDefault()
     onSubmit(formData)
     setFormData(initialFormData)
-    getAllCustomers()
   }
 
   return (
@@ -35,7 +35,7 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
             label='Name'
             fullWidth
@@ -44,31 +44,56 @@ const AddCustomerForm = ({ onSubmit, onCancel }) => {
             required
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
             label='Mobile'
             type="number"
             fullWidth
+            required
             value={formData.mobile}
             onChange={e => handleInputChange('mobile', e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
+
+        <Grid item xs={6}>
           <TextField
             label='Email'
             fullWidth
+            required
             value={formData.email}
             onChange={e => handleInputChange('email', e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
             label='Aadhar'
             fullWidth
+            required
             value={formData.aadharNumber}
             onChange={e => handleInputChange('aadharNumber', e.target.value)}
           />
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label='Selling Customer'
+            select
+            fullWidth
+            required
+            value={formData.selling_customer}
+            onChange={e => handleInputChange('selling_customer', e.target.value)}
+          >
+            {
+              <div>
+                <MenuItem key={1} value={false}>
+                  No
+                </MenuItem>
+                <MenuItem key={2} value={true}>
+                  Yes
+                </MenuItem></div>
+            }
+          </TextField>
+        </Grid>
+
       </Grid>
       <Grid container sx={{ marginTop: 2 }} spacing={2} justifyContent='flex-end'>
         <Grid item>
